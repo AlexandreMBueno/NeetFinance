@@ -1,0 +1,84 @@
+body {
+    font-family: "Courier New", Courier, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Nimbus Mono L", "Monaco", Consolas, "Andale Mono", "Ubuntu Mono", monospace;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+}
+
+.container {
+    display: flex;
+    height: 100vh; /* viewport height, ou seja 100% */ 
+}
+
+.sidebar {
+    background-color: #2f3031;
+    padding: 20px;
+    width: 25%;
+    box-sizing: border-box;
+    color: #ffffff;
+}
+
+.content {
+    background-color: #18191a;
+    color: #000000;
+    padding: 20px;
+    width: 75%;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.exercise-list li {
+    padding: 10px;
+    cursor: pointer;
+    list-style-type: none;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.exercise-list li:hover {
+    background-color: #a751f2;
+    transition: 0.5s;
+}
+
+.conteudo-exercicio {
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #000000;
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress {
+    height: 13px;
+    width: 0%;
+    background-color: #a751f2;
+    border-radius: 5px;
+    transition: width 0.3s;
+}
+
+.button-link {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: #a751f2;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #a751f2;
+    border-radius: 7px;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.button-link:hover {
+    background-color: #a751f2;
+    color: #ffffff;
+    border-color: #a751f2;
+    transition: 0.7s;
+}
