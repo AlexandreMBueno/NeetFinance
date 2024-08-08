@@ -14,7 +14,6 @@ body {
     background-color: #2f3031;
     padding: 20px;
     width: 25%;
-    box-sizing: border-box;
     color: #ffffff;
 }
 
@@ -22,9 +21,11 @@ body {
     background-color: #18191a;
     color: #000000;
     padding: 20px;
-    width: 75%;
-    box-sizing: border-box;
-    overflow-y: auto;
+    width: 100%;
+}
+
+.exercise-list{
+    padding: 0px;
 }
 
 .exercise-list li {
@@ -36,49 +37,70 @@ body {
 }
 
 .exercise-list li:hover {
-    background-color: #a751f2;
+    background-color: rgb(0, 255, 125);
     transition: 0.5s;
 }
 
-.conteudo-exercicio {
-    border: 1px solid #ddd;
-    padding: 20px;
-    background-color: #f4f4f4;
-    color: #000000;
+.exercise-content{
+    text-align: center;
+    border: 1px solid #2f3031;
+    padding: 10px;
+    background-color: #2f3031;
+    color: #ddd;
+    font-size: 25px;
+    border-radius: 5px;
 }
 
 .progress-bar {
     width: 100%;
     background-color: #ddd;
     border-radius: 5px;
-    overflow: hidden;
-    margin-bottom: 10px;
+    /* overflow: hidden; */
+    /* margin-bottom: 10px; */
 }
 
 .progress {
     height: 13px;
     width: 0%;
-    background-color: #a751f2;
+    background-color: rgb(0, 255, 125);
     border-radius: 5px;
     transition: width 0.3s;
 }
-/* 
-.button-link {
-    padding: 10px 20px;
-    background-color: transparent;
-    color: #a751f2;
+
+.button-submit-exercise{
+    margin-top: 10px;
+    /* margin-left: 1325px; */
+    /* float: right; */
+    padding: 5px 10px;
+    background-color: rgb(0, 255, 125);
+    color: #ffffff;
     text-align: center;
     text-decoration: none;
-    border: 2px solid #a751f2;
+    border: 2px solid rgb(0, 255, 125);
     border-radius: 7px;
-    font-family: Arial, sans-serif;
-    font-size: 18px;
+    font-family: "Courier New", Courier, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Nimbus Mono L", "Monaco", Consolas, "Andale Mono", "Ubuntu Mono", monospace;
+    font-size: 15px;
     font-weight: bold;
 }
 
-.button-link:hover {
-    background-color: #a751f2;
+.button-submit-exercise:hover{
+    background-color: rgb(0, 255, 125);
     color: #ffffff;
-    border-color: #a751f2;
-    transition: 0.7s;
-} */
+    border-color: rgb(0, 255, 125);
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.input-answer {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 15px;
+    box-sizing: border-box; /* tive q por pq o textarea tava saindo p fora do espaco*/
+}
+
+.input-answer:focus { /* focus e tipo um hover, mas p/ quando o elemento for selecionado, nesse caso a area de resposta*/
+    outline: none;/* por padrao fica um contorno vermelho, so tirei ele*/
+}
+
