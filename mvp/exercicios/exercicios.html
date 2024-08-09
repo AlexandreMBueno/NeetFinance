@@ -10,20 +10,39 @@
     <div class="container">
         <div class="sidebar">
             <h2>Status</h2>
-            <div class="progress-bar">
-                <div id="progress" class="progress"></div>
+            <div class="progress-section">
+                <div class="progress-label">
+                    <p>Facil</p>
+                    <p id="progress-text-easy">0 / 3</p>
+                </div>
+                <div class="progress-bar">
+                    <div id="progress-easy" class="progress"></div>
+                </div>
             </div>
-            <p id="progress-text">0/3 completos</p>
-            <h2>Exercicios</h2>
-            <ul id="lista-exercicio" class="exercise-list">
-                <li data-id="1">1. Soma de dois valores.</li>
-                <li data-id="2">2. Subtracao de dois valores.</li>
-                <li data-id="3">3. Multiplicacao de dois valores.</li>
-            </ul>
+            <div class="progress-section">
+                <div class="progress-label">
+                    <p>Medio</p>
+                    <p id="progress-text-medium">0 / 3</p>
+                </div>
+                <div class="progress-bar">
+                    <div id="progress-medium" class="progress"></div>
+                </div>
+            </div>
+            <div class="progress-section">
+                <div class="progress-label">
+                    <p>Dificil</p>
+                    <p id="progress-text-hard">0 / 3</p>
+                </div>
+                <div class="progress-bar">
+                    <div id="progress-hard" class="progress"></div>
+                </div>
+            </div>
         </div>
         <div class="content">
+            <div class="exercise-header">
+                <h2>Exercicios</h2>
+            </div>
             <div id="area-exercicio" class="exercise-content">
-                <h3>NeetFinance 100</h3>
             </div>
         </div>
     </div>

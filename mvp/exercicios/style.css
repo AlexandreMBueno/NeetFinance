@@ -1,62 +1,43 @@
 body {
-    font-family: "Courier New", Courier, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Nimbus Mono L", "Monaco", Consolas, "Andale Mono", "Ubuntu Mono", monospace;
+    font-family: "Arial", sans-serif;
     margin: 0;
     padding: 0;
     color: #ffffff;
+    background-color: #18191a;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .container {
     display: flex;
-    height: 100vh; /* viewport height, ou seja 100% */ 
+    height: 100vh; 
+    overflow: hidden;
 }
 
 .sidebar {
-    background-color: #2f3031;
+    background-color: #242526;
     padding: 20px;
-    width: 25%;
+    width: 20%;
     color: #ffffff;
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 }
 
-.content {
-    background-color: #18191a;
-    color: #000000;
-    padding: 20px;
-    width: 100%;
+.progress-section {
+    margin-bottom: 20px;
 }
 
-.exercise-list{
-    padding: 0px;
-}
-
-.exercise-list li {
-    padding: 10px;
-    cursor: pointer;
-    list-style-type: none;
-    font-weight: bold;
-    border-radius: 10px;
-}
-
-.exercise-list li:hover {
-    background-color: rgb(0, 255, 125);
-    transition: 0.5s;
-}
-
-.exercise-content{
-    text-align: center;
-    border: 1px solid #2f3031;
-    padding: 10px;
-    background-color: #2f3031;
-    color: #ddd;
-    font-size: 25px;
-    border-radius: 5px;
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
 }
 
 .progress-bar {
     width: 100%;
-    background-color: #ddd;
+    background-color: #3a3b3c;
     border-radius: 5px;
-    /* overflow: hidden; */
-    /* margin-bottom: 10px; */
 }
 
 .progress {
@@ -67,40 +48,74 @@ body {
     transition: width 0.3s;
 }
 
-.button-submit-exercise{
-    margin-top: 10px;
-    /* margin-left: 1325px; */
-    /* float: right; */
-    padding: 5px 10px;
-    background-color: rgb(0, 255, 125);
+.content {
+    background-color: #18191a;
+    padding: 20px;
+    width: 80%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.button-exercises {
+    padding: 10px 20px;
+    background-color: #3a3b3c;
     color: #ffffff;
-    text-align: center;
-    text-decoration: none;
-    border: 2px solid rgb(0, 255, 125);
-    border-radius: 7px;
-    font-family: "Courier New", Courier, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Nimbus Mono L", "Monaco", Consolas, "Andale Mono", "Ubuntu Mono", monospace;
-    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     font-weight: bold;
 }
 
-.button-submit-exercise:hover{
+.button-exercises:hover {
+    background-color: #4b4c4f;
+}
+
+.exercise-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.enunciado-exercicio {
+    padding: 15px;
+    background-color: #3a3b3c;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 90%;
+}
+
+.enunciado-exercicio:hover {
+    background-color: #4b4c4f;
+}
+
+.button-submit-exercise {
+    margin-top: 10px;
+    padding: 10px 20px;
     background-color: rgb(0, 255, 125);
     color: #ffffff;
-    border-color: rgb(0, 255, 125);
-    transition: 0.5s;
-    cursor: pointer;
-}
-
-.input-answer {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #ddd;
+    text-align: center;
+    border: none;
     border-radius: 5px;
-    font-size: 15px;
-    box-sizing: border-box; /* tive q por pq o textarea tava saindo p fora do espaco*/
+    cursor: pointer;
+    font-weight: bold;
+    width: 15%;
+    font-size: 17px;
 }
 
-.input-answer:focus { /* focus e tipo um hover, mas p/ quando o elemento for selecionado, nesse caso a area de resposta*/
-    outline: none;/* por padrao fica um contorno vermelho, so tirei ele*/
+.button-submit-exercise:hover {
+    background-color: rgb(0, 172, 83);
+    transition: 0.7s;
 }
 
+input[type="radio"] {
+    margin-right: 10px;
+}
