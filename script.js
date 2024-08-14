@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h3>${exercicio.titulo}</h3>
                     <p>${exercicio.conteudo}</p>
                     ${opcoesHTML}
-                    <button id="enviar-exercicio" class="button-submit-exercise">Submit</button>
+                    <button id="enviar-exercicio" class="button-submit-exercise">Enviar</button>
                 `; // esse ${} e so p colocar variavel
 
                 const botaoEnviar = document.getElementById('enviar-exercicio');
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 exerciciosCompletosHard++;
                                 atualizarProgresso(barraDeProgressoHard, textoDeProgressoHard, exerciciosCompletosHard, 3);
                             }
-                            alert("Resposta Correta."); // deixar isso mais user friendly
+                            alert("Resposta Correta.");
                         }
                     } else {
                         alert("Resposta incorreta. Tente novamente.");

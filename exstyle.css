@@ -9,7 +9,7 @@ body {
 }
 
 header {
-    background-color: rgb(47, 49, 54);
+    background-color: #0f0d1c; 
     padding: 10px 20px;
 }
 
@@ -49,7 +49,7 @@ nav ul li a:hover{
 }
 
 .sidebar {
-    background-color: #242526;
+    background-color: #0f0d1c; 
     padding: 20px;
     width: 20%;
     color: #ffffff;
@@ -70,7 +70,7 @@ nav ul li a:hover{
 
 .progress-bar {
     width: 100%;
-    background-color: #3a3b3c;
+    background-color: #ffffff;
     border-radius: 5px;
 }
 
@@ -83,7 +83,7 @@ nav ul li a:hover{
 }
 
 .content {
-    background-color: #18191a;
+    background-color: #080710;
     padding: 20px;
     width: 80%;
     overflow-y: auto;
@@ -98,7 +98,7 @@ nav ul li a:hover{
     margin-bottom: 20px;
 }
 
-.button-exercises {
+/* .button-exercises {
     padding: 10px 20px;
     background-color: #3a3b3c;
     color: #ffffff;
@@ -110,7 +110,7 @@ nav ul li a:hover{
 
 .button-exercises:hover {
     background-color: #4b4c4f;
-}
+} */
 
 .exercise-content {
     display: flex;
@@ -120,16 +120,18 @@ nav ul li a:hover{
 
 .enunciado-exercicio {
     padding: 15px;
-    background-color: #3a3b3c;
+    background-color: #141124ba;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
     width: 90%;
+    font-weight: bold;
 }
 
 .enunciado-exercicio:hover {
-    background-color: #4b4c4f;
+    box-shadow: 0 0 0 3px rgb(0, 255, 125);
 }
+
 
 .button-submit-exercise {
     margin-top: 10px;
@@ -146,10 +148,15 @@ nav ul li a:hover{
 }
 
 .button-submit-exercise:hover {
-    background-color: rgb(0, 172, 83);
-    transition: 0.7s;
+    background-color: rgb(1, 196, 95);
+    transition: 0.3s;
 }
 
 input[type="radio"] {
     margin-right: 10px;
 }
+
+/*
+  background-color: #080710; azul bem escuro
+
+*/

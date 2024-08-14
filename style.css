@@ -2,21 +2,19 @@ body {
     font-family: "Courier New", Courier, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Nimbus Mono L", "Monaco", Consolas, "Andale Mono", "Ubuntu Mono", monospace;
     margin: 0;
     padding: 0;
-    background-color: #202225;
-    color: #ddd;
+    background-color: #080710;
+    color: #ffffff;
 }
 
 header {
-    background-color: rgb(47, 49, 54);
+    background-color: #0f0d1c; 
     padding: 10px 20px;
 }
 
 p{
     font-weight: bold;
-    color: #ddd;
+    color: #ffffff;
 }
-
-
 
 nav ul {
     list-style: none;
