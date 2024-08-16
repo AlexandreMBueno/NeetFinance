@@ -22,11 +22,13 @@
     <div class="shape"></div>
   </div>
 
-
-
   <!-- form de cadastro dos users p flask conseguir pegar os dados-->
-  <form action="{{ url_for('register') }}" method="POST">
+  <form action="{{ url_for('login') }}" method="POST">
     <h2>NeetFinance</h2>
+
+    {% if erro %}
+        <div class="error-message">{{ erro }}</div>
+    {% endif %}
 
     <label for="email">Email</label>
     <input type="email" placeholder="Email" id="email" name="email" required>
@@ -34,8 +36,9 @@
     <label for="senha">Senha</label>
     <input type="password" placeholder="Senha" id="senha" name="senha" required>
 
-    <button type="submit" formaction="{{ url_for('login') }}">Log In</button>
-    <button type="submit" formaction="{{ url_for('register') }}">Criar Conta</button>  </form>
+    <button type="submit">Log In</button>
+    <button type="submit" formaction="{{ url_for('register') }}">Criar Conta</button>
+  </form>
 
 </body>
 </html>

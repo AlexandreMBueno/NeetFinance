@@ -2,9 +2,9 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import psycopg2
 
 app = Flask(__name__)
-app.secret_key = 'sua_chave_secreta_aqui'  # Chave secreta necessaria para usar sessoes
+app.secret_key = 'sua_chave_secreta_aqui'  # Chave secreta necessária para usar sessões
 
-# nossa config p conectar ao banco
+# Nossa configuração para conectar ao banco de dados
 def get_db_connection():
     conn = psycopg2.connect(
         dbname='nf_database',
@@ -16,20 +16,24 @@ def get_db_connection():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Passa o email do usuário logado (se houver) para o template
+    email = session.get('user_email')
+    return render_template('index.html', email=email)
 
-
-# para um user logar
-@app.route('/login', methods=['GET','POST'])
+# Para um usuário logar
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        email = request.form['email']
-        senha = request.form['senha']
+        email = request.form['email'].strip()
+        senha = request.form['senha'].strip()
+
+        if not email or not senha:
+            return render_template('login.html', erro="Por favor, insira ambos email e senha.")
 
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Verifica se o usuario existe no banco de dados
+        # Verifica se o usuário existe no banco
         cursor.execute('SELECT id FROM usuarios WHERE email = %s AND senha = %s', (email, senha))
         user = cursor.fetchone()
 
@@ -37,20 +41,23 @@ def login():
         conn.close()
 
         if user:
-            # Salva o ID do usuario na sessao
+            # salvamos id e email do user
             session['user_id'] = user[0]
+            session['user_email'] = email  #  armazena email do user na sessao
             return redirect(url_for('index'))
         else:
-            # Se o login falhar, redireciona para a pagina de login com uma mensagem de erro
-            return render_template('login.html', erro="Usuario nao encontrado ou senha incorreta.")
+            return render_template('login.html', erro="Usuário não encontrado ou senha incorreta.")
     
     return render_template('login.html')
 
-# para um user novo se registrar
+# register de um novo user
 @app.route('/register', methods=['POST'])
 def register():
-    email = request.form['email']
-    senha = request.form['senha']
+    email = request.form['email'].strip()
+    senha = request.form['senha'].strip()
+
+    if not email or not senha:
+        return render_template('login.html', erro="Por favor, insira um email e senha válidos.")
 
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -61,20 +68,20 @@ def register():
     cursor.close()
     conn.close()
 
-    return redirect(url_for('login'))
+    # qnd daregister, vai p pagina principal NeetFinance
+    session['user_email'] = email
+    return redirect(url_for('index'))
 
-
-# rota p usuario completar o ex e ficar salvo nos seus dados
+# essa rota criei p usuario fzr o exercicio e salvar nos seus dados
 @app.route('/completar_exercicio', methods=['POST'])
 def completar_exercicio():
     if 'user_id' in session:
-        usuario_id = session['user_id']  # pegamos o id do usuario q ta logado
+        usuario_id = session['user_id'] # id do user logado
         exercicio_id = request.form['exercicio_id']
 
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Adicionando um log para verificar os valores que estao sendo enviados
         print(f"Salvando progresso: usuario_id={usuario_id}, exercicio_id={exercicio_id}")
 
         cursor.execute('INSERT INTO usuarios_exercicios (usuario_id, exercicio_id, completado) VALUES (%s, %s, TRUE)',
@@ -95,6 +102,7 @@ def exercicios():
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
+    session.pop('user_email', None)
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
