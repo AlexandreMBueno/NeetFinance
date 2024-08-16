@@ -14,6 +14,7 @@
             <li><a href="#">Cursos</a></li>
             <li><a href="{{ url_for('exercicios') }}">Exercícios</a></li>
             <li><a href="#">Cronograma</a></li>
+            <li><a href="#">{% if email %}User:{{ email }}{% endif %}</a></li> <!--feio mas funciona-->
         </ul>
     </nav>
 </header>
