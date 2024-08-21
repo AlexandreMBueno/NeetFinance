@@ -1,16 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+from dotenv import load_dotenv
+import os
 import psycopg2
+
+load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = 'sua_chave_secreta_aqui'  # chave p usar sessoes
 
 def get_db_connection():
     conn = psycopg2.connect(
-        dbname='postgres',
-        user='postgres',
-        password='',
-        host='db-projetos-fintz.cngcckcomgup.us-east-2.rds.amazonaws.com',
-        port= '5432'
+        dbname=os.getenv('DB_NAME'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD'),
+        host=os.getenv('DB_HOST'),
+        port=os.getenv('DB_PORT')
     )
     return conn
 
