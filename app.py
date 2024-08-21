@@ -80,6 +80,9 @@ def completar_exercicio():
         usuario_id = session['user_id'] # id do user logado
         exercicio_id = request.form['exercicio_id']
 
+        print(f"User ID from session: {usuario_id}")  # so p teste
+        print(f"Exercise ID: {exercicio_id}")  # 
+
         conn = get_db_connection()
         cursor = conn.cursor()
 
