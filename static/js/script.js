@@ -104,6 +104,61 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // login e registrro
+    const formLogin = document.getElementById('login-form');
+    const formError = document.getElementById('error-message');
+
+    if (formLogin) {
+        formLogin.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+
+            fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email, senha: senha })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Login realizado com sucesso!');
+                } else {
+                    formError.style.display = 'block';
+                    formError.textContent = data.message;
+                }
+            })
+            .catch(error => console.error('Erro:', error));
+            
+        });
+
+        document.getElementById('register-button').addEventListener('click', function() {
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+
+            fetch('url do lambda', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email, senha: senha })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Conta criada com sucesso!');
+                } else {
+                    formError.style.display = 'block';
+                    formError.textContent = data.message;
+                }
+            })
+            .catch(error => console.error('Erro:', error));
+        });
+    }
 });
 
 function atualizarProgresso(barra, texto, completos, total) {

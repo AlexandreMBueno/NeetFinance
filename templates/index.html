@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NeetFinance</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="login.html">Login</a></li>
                 <li><a href="#">Cursos</a></li>
-                <li><a href="{{ url_for('exercicios') }}">Exercícios</a></li>
+                <li><a href="exercicios.html">Exercícios</a></li>
                 <li><a href="#">Cronograma</a></li>
-                <li><a href="#">{% if email %}User:{{ email }}{% endif %}</a></li> <!--feio mas funciona-->
+                <!-- <li><a href="#">{% if email %}User:{{ email }}{% endif %}</a></li> feio mas funciona -->
             </ul>
         </nav>
     </header>

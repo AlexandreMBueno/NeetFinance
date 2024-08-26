@@ -3,18 +3,18 @@
 
 <head>
   <title>login NeetFinance</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/loginstyle.css') }}">
+  <link rel="stylesheet" href="/static/css/loginstyle.css">
 </head>
 
 <body>
   <header>
     <nav>
         <ul>
-            <li><a href="{{ url_for('index') }}">NeetFinance</a></li>
+            <li><a href="index.html">NeetFinance</a></li>
             <li><a href="#">Cursos</a></li>
-            <li><a href="{{ url_for('exercicios') }}">Exercícios</a></li>
+            <li><a href="exercicios.html">Exercícios</a></li>
             <li><a href="#">Cronograma</a></li>
-            <li><a href="#">{% if email %}User:{{ email }}{% endif %}</a></li> <!--feio mas funciona-->
+            <!-- <li><a href="#">{% if email %}User:{{ email }}{% endif %}</a></li> feio mas funciona -->
         </ul>
     </nav>
 </header>
@@ -24,12 +24,11 @@
   </div>
 
   <!-- form de cadastro dos users p flask conseguir pegar os dados-->
-  <form action="{{ url_for('login') }}" method="POST">
+  <form id="login-form">
     <h2>NeetFinance</h2>
 
-    {% if erro %}
-        <div class="error-message">{{ erro }}</div>
-    {% endif %}
+    <!-- Campo para exibir mensagens de erro -->
+    <div id="error-message" class="error-message" style="display: none;"></div>
 
     <label for="email">Email</label>
     <input type="email" placeholder="Email" id="email" name="email" required>
@@ -38,7 +37,7 @@
     <input type="password" placeholder="Senha" id="senha" name="senha" required>
 
     <button type="submit">Log In</button>
-    <button type="submit" formaction="{{ url_for('register') }}">Criar Conta</button>
+    <button type="button" id="register-button">Criar Conta</button>
   </form>
 
 </body>
