@@ -27,15 +27,15 @@ export default {
   h1 {
     text-align: center;
     margin-top: 0;
-    padding-top: 20px; /* Ajuste conforme a distância que você deseja do topo */
+    padding-top: 20px; /* distancia do topo  */
   }
 
   /* Centraliza o conteúdo verticalmente e horizontalmente */
   #app {
     display: flex;
-    flex-direction: column; /* Organiza os itens em uma coluna (verticalmente) */
-    justify-content: flex-start; /* Alinha no topo */
-    align-items: center; /* Centraliza horizontalmente */
-    min-height: 100vh; /* Ocupa toda a altura da tela */
+    flex-direction: column; 
+    justify-content: flex-start; 
+    align-items: center; 
+    min-height: 100vh; 
   }
 </style>

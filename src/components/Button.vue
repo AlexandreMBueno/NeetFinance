@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'MyButton',  // Nome do componente atualizado para múltiplas palavras
+  name: 'MyButton',  // 
   props: {
     label: String,
     onClick: Function
