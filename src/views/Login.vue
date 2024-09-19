@@ -11,8 +11,8 @@
             <input v-model="email" type="email" id="email" placeholder="Digite seu email" required />
           </div>
           <div class="form-group">
-            <label for="password">Senha</label>
-            <input v-model="password" type="password" id="password" placeholder="Digite sua senha" required />
+            <label for="senha">Senha</label>
+            <input v-model="senha" type="password" id="senha" placeholder="Digite sua senha" required />
           </div>
           <button type="submit">Entrar</button>
           <p>{{ responseMessage }}</p> <!-- pmostrar msg do backend-->
@@ -33,7 +33,7 @@
     data() {
       return {
         email: '',
-        password: '',
+        senha: '',
         responseMessage: '',  // Pra armazenar a resposta do back-end
       };
     },
@@ -43,7 +43,7 @@
           // Envia a requisição POST com email e senha para o back-end
           const response = await axios.post('http://127.0.0.1:8000/login', {
             email: this.email,
-            password: this.password,
+            senha: this.senha,
           });
   
           // Exibe a mensagem de resposta do back-end
@@ -51,7 +51,7 @@
   
           // Limpa os campos de email e senha após o login
           this.email = '';
-          this.password = '';
+          this.senha = '';
         } catch (error) {
           this.responseMessage = "Erro ao conectar com o servidor.";
         }
