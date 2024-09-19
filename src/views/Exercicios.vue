@@ -10,12 +10,13 @@
       </ul>
     </div>
 
-    <!-- Exibição do exercício selecionado -->
+    <!-- exibe o exercicio selecionado no meio da pagina do lado -->
     <div class="exercise-content" v-if="selectedExercise">
       <h2>{{ selectedExercise.question }}</h2>
       <div v-for="(option, i) in selectedExercise.options" :key="i">
         <label>
-          <input type="radio" :value="option" v-model="selectedAnswer" />
+          <!-- Enviar apenas a letra da opcao como valor -->
+          <input type="radio" :value="option.trim().charAt(0)" v-model="selectedAnswer" />
           {{ option }}
         </label>
       </div>
@@ -32,7 +33,7 @@ export default {
   name: 'NfExercicios',
   data() {
     return {
-      exercises: [],          // Lista de exercícios
+      exercises: [],          // Lista de exerccios
       selectedExercise: null, // Exercício selecionado
       selectedAnswer: '',     // Resposta escolhida
       responseMessage: '',    // Mensagem de resposta
@@ -42,7 +43,7 @@ export default {
     this.fetchExercises();
   },
   methods: {
-    // Buscar exercícios do banco de dados
+    // Buscar exercicios do banco de dados
     fetchExercises() {
       axios.get('http://127.0.0.1:8000/exercicios')
         .then(response => {
@@ -52,11 +53,11 @@ export default {
           this.responseMessage = "Erro ao buscar exercícios.";
         });
     },
-    // Exibir o exercício selecionado
+    // mostra o ex selecionado
     selectExercise(exercise) {
       this.selectedExercise = exercise;
-      this.selectedAnswer = ''; // Resetar resposta ao selecionar novo exercício
-      this.responseMessage = ''; // Resetar mensagem ao selecionar novo exercício
+      this.selectedAnswer = ''; // Resetar resposta ao selecionar novo exercicio
+      this.responseMessage = ''; 
     },
     // Enviar a resposta do exercício selecionado
     submitAnswer() {
@@ -83,7 +84,7 @@ export default {
 <style>
 .container {
   display: flex;
-  height: 100vh; /* A sidebar e o conteúdo ocupam toda a altura da página */
+  height: 100vh; 
 }
 
 .sidebar {
@@ -91,11 +92,11 @@ export default {
   background-color: #f8f9fa;
   border-right: 1px solid #ccc;
   padding: 20px;
-  position: fixed; /* Fixar a sidebar à esquerda */
+  position: fixed; 
   left: 0;
-  top: 0px; /* Ajustar a sidebar para começar abaixo da navbar (assumindo que a navbar tem 60px de altura) */
+  top: 0px; 
   bottom: 0;
-  overflow-y: auto; /* Permitir rolagem se a lista for muito longa */
+  overflow-y: auto; 
 }
 
 .sidebar h3 {
@@ -120,13 +121,13 @@ export default {
 }
 
 .exercise-content {
-  margin-left: 270px; /* Espaço para o conteúdo da sidebar */
+  margin-left: 270px; 
   padding: 20px;
-  flex-grow: 1; /* O conteúdo do exercício ocupa o restante da página */
+  flex-grow: 1; 
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centraliza o exercício horizontalmente */
-  margin-top: 50px; /* Ajusta a posição verticalmente abaixo da navbar */
+  align-items: center; 
+  margin-top: 50px; 
 }
 
 label {
