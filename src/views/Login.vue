@@ -4,7 +4,7 @@
     <Navbar />
 
     <div class="login-container">
-      <h2>Login</h2>
+      <h2>Bem Vindo</h2>
       <form @submit.prevent="handleLogin">
         <div class="form-group">
           <label for="email">Email</label>
@@ -14,7 +14,7 @@
           <label for="senha">Senha</label>
           <input v-model="senha" type="password" id="senha" placeholder="Digite sua senha" required />
         </div>
-        <button type="submit">Entrar</button>
+        <button type="submit">Registrar-se</button>
         <p>{{ responseMessage }}</p> <!-- pmostrar msg do backend-->
       </form>
     </div>

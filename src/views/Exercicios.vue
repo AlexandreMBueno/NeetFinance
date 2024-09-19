@@ -1,7 +1,23 @@
 <template>
   <div>
     <h2>Exercício 1</h2>
-    <input v-model="userAnswer" placeholder="Digite sua resposta" />
+    <p>O que é considerado um ativo financeiro?</p>
+    <label>
+      <input type="radio" v-model="userAnswer" value="A" />
+      A) Um fundo de investimento
+    </label>
+    <label>
+      <input type="radio" v-model="userAnswer" value="B" />
+      B) Um título de capitalização
+    </label>
+    <label>
+      <input type="radio" v-model="userAnswer" value="C" />
+      C) Ações de uma empresa
+    </label>
+    <label>
+      <input type="radio" v-model="userAnswer" value="D" />
+      D) Um CDB (Cert de Depos Bancário)
+    </label>
     <button @click="checkAnswer">Enviar</button>
     <p>{{ responseMessage }}</p>
   </div>
@@ -11,7 +27,7 @@
 import axios from 'axios';
 
 export default {
-  name: 'NfExercicios',  //Mantido p evitar erros(ver isso dps pq se tira da erro de 'must be multiword)
+  name: 'NfExercicios',
   data() {
     return {
       userAnswer: '',
@@ -33,7 +49,18 @@ export default {
 </script>
 
 <style>
+label {
+  display: block;
+  margin-bottom: 10px;
+  text-align: left; /* Alinha o texto à esquerda */
+}
+
+input[type="radio"] {
+  margin-right: 10px; /* Adiciona espaçamento entre o botão de rádio e o texto */
+}
+
 button {
   padding: 5px;
 }
+
 </style>
