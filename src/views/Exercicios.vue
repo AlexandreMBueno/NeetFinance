@@ -10,12 +10,11 @@
       </ul>
     </div>
 
-    <!-- exibe o exercicio selecionado no meio da pagina do lado -->
+    <!-- Exibe o exercicio selecionado no meio da pagina do lado -->
     <div class="exercise-content" v-if="selectedExercise">
       <h2>{{ selectedExercise.question }}</h2>
       <div v-for="(option, i) in selectedExercise.options" :key="i">
         <label>
-          <!-- Enviar apenas a letra da opcao como valor -->
           <input type="radio" :value="option.trim().charAt(0)" v-model="selectedAnswer" />
           {{ option }}
         </label>
@@ -33,17 +32,16 @@ export default {
   name: 'NfExercicios',
   data() {
     return {
-      exercises: [],          // Lista de exerccios
-      selectedExercise: null, // Exercício selecionado
-      selectedAnswer: '',     // Resposta escolhida
-      responseMessage: '',    // Mensagem de resposta
+      exercises: [],
+      selectedExercise: null,
+      selectedAnswer: '',
+      responseMessage: '',
     };
   },
   mounted() {
     this.fetchExercises();
   },
   methods: {
-    // Buscar exercicios do banco de dados
     fetchExercises() {
       axios.get('http://127.0.0.1:8000/exercicios')
         .then(response => {
@@ -53,30 +51,38 @@ export default {
           this.responseMessage = "Erro ao buscar exercícios.";
         });
     },
-    // mostra o ex selecionado
     selectExercise(exercise) {
       this.selectedExercise = exercise;
       this.selectedAnswer = ''; // Resetar resposta ao selecionar novo exercicio
       this.responseMessage = ''; 
     },
-    // Enviar a resposta do exercício selecionado
     submitAnswer() {
-      if (!this.selectedAnswer) {
-        this.responseMessage = "Por favor, selecione uma resposta.";
-        return;
-      }
+  if (!this.selectedAnswer) {
+    this.responseMessage = "Por favor, selecione uma resposta.";
+    return;
+  }
 
-      axios.post('http://127.0.0.1:8000/responder-exercicio', {
-        answer: this.selectedAnswer,
-        exercicio_id: this.selectedExercise.id
-      })
-        .then(response => {
-          this.responseMessage = response.data.message;
-        })
-        .catch(() => {
-          this.responseMessage = "Erro ao enviar a resposta.";
-        });
-    },
+  let userId = localStorage.getItem('userId'); // Recuperar o userId armazenado no localStorage
+
+  if (!userId) {
+    this.responseMessage = "Usuário não autenticado.";
+    return;
+  }
+
+  userId = parseInt(userId); // Converter o userId de string para inteiro
+
+  axios.post('http://127.0.0.1:8000/responder-exercicio', {
+    answer: this.selectedAnswer,
+    exercicio_id: this.selectedExercise.id,
+    user_id: userId
+  })
+  .then(response => {
+    this.responseMessage = response.data.message;
+  })
+  .catch(() => {
+    this.responseMessage = "Erro ao enviar a resposta.";
+  });
+}
   },
 };
 </script>

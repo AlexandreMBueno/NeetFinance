@@ -55,7 +55,7 @@ export default {
         this.responseMessage = "Erro ao conectar com o servidor.";
       }
     },
-    async handleLogin() {  // Método de login
+    async handleLogin() {  //  metodo login
       try {
         const response = await axios.post('http://127.0.0.1:8000/login', {
           email: this.email,
