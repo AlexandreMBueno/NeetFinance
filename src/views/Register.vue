@@ -3,9 +3,9 @@
     <!-- Navbar será importada e exibida aqui -->
     <Navbar />
 
-    <div class="login-container">
+    <div class="register-container">
       <h2>Bem Vindo</h2>
-      <form @submit.prevent="handleLogin">
+      <form @submit.prevent="handleRegister">
         <div class="form-group">
           <label for="email">Email</label>
           <input v-model="email" type="email" id="email" placeholder="Digite seu email" required />
@@ -14,8 +14,11 @@
           <label for="senha">Senha</label>
           <input v-model="senha" type="password" id="senha" placeholder="Digite sua senha" required />
         </div>
-        <button type="submit">Registrar-se</button>
-        <p>{{ responseMessage }}</p> <!-- pmostrar msg do backend-->
+        <div class="button-group">
+          <button type="submit">Registrar-se</button>
+          <button type="button" @click="handleLogin">Login</button> <!-- Botão de login -->
+        </div>
+        <p>{{ responseMessage }}</p> <!-- Exibir mensagem do back-end-->
       </form>
     </div>
   </div>
@@ -23,10 +26,10 @@
 
 <script>
 import axios from 'axios';
-import Navbar from '../components/Navbar.vue';  // import o componente Navbar
+import Navbar from '../components/Navbar.vue';  // Import o componente Navbar
 
 export default {
-  name: 'NfLogin',
+  name: 'NfRegister',  // mudei nome p Nfregister
   components: {
     Navbar,  
   },
@@ -34,34 +37,50 @@ export default {
     return {
       email: '',
       senha: '',
-      responseMessage: '',  // Pra armazenar a resposta do back-end
+      responseMessage: '',  // Para armazenar a resposta do back-end
     };
   },
   methods: {
-    async handleLogin() {
+    async handleRegister() {  // Método de registro
       try {
-        // Envia a requisição POST com email e senha para o back-end
-        const response = await axios.post('http://127.0.0.1:8000/login', {
+        const response = await axios.post('http://127.0.0.1:8000/register', {
           email: this.email,
           senha: this.senha,
         });
 
-        // Exibe a mensagem de resposta do back-end
         this.responseMessage = response.data.message;
-
-        // Limpa os campos de email e senha após o login
         this.email = '';
         this.senha = '';
       } catch (error) {
         this.responseMessage = "Erro ao conectar com o servidor.";
       }
     },
+    async handleLogin() {  // Método de login
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/login', {
+          email: this.email,
+          senha: this.senha,
+        });
+
+        if (response.data.id) {
+          localStorage.setItem('userId', response.data.id);  // Armazenar o ID do user
+          this.responseMessage = "Login bem-sucedido!";
+        } else {
+          this.responseMessage = "Falha no login, verifique suas credenciais.";
+        }
+
+        this.email = '';
+        this.senha = '';
+      } catch (error) {
+        this.responseMessage = "Erro ao conectar com o servidor.";
+      }
+    }
   },
 };
 </script>
 
 <style scoped>
-.login-container {
+.register-container {
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
@@ -72,6 +91,11 @@ export default {
 
 .form-group {
   margin-bottom: 15px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
 }
 
 label {
