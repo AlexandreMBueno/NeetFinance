@@ -4,6 +4,7 @@
         <li><router-link to="/register">Login</router-link></li>
         <li><router-link to="/">NeetFinance</router-link></li>
         <li><router-link to="/exercicios">Exercícios</router-link></li>
+        <li><router-link to="/cursos">Cursos</router-link></li>
       </ul>
     </nav>
   </template>

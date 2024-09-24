@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Exercicios from '../views/Exercicios.vue'
 import Register from '../views/Register.vue'
+import Cursos from '../views/Cursos.vue'
 
 const routes = [
   // {
@@ -11,7 +12,7 @@ const routes = [
   //   // como rota, entao nao e necessario
   // }, 
   {
-    path: '/exercicios',     // Rota para a pag de exercícios
+    path: '/exercicios',     // Rotas para ex, register e cursos
     name: 'Exercicios',
     component: Exercicios
   },
@@ -19,6 +20,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/cursos',         
+    name: 'Cursos',
+    component: Cursos
   }
 ]
 
