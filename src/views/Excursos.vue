@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <!-- Sidebar com os enunciados dos exercícios -->
+    <!-- Sidebar com os enunciados dos exercícios com curso_id = null -->
     <div class="sidebar">
-      <h3>Exercícios</h3>
+      <h3>Curso - Introdução a financas pessoais</h3>
 
-<!-- barra de progresso dos ex -->
+      <!-- Barra de progresso -->
       <div v-if="progress">
         <p>Progresso: {{ progress.completed }} / {{ progress.total }}</p>
         <progress :value="progress.completed" :max="progress.total"></progress>
@@ -17,7 +17,7 @@
       </ul>
     </div>
 
-    <!-- Exibe o exercicio selecionado no meio da pagina do lado -->
+    <!-- Exibe o exercício selecionado -->
     <div class="exercise-content" v-if="selectedExercise">
       <h2>{{ selectedExercise.question }}</h2>
       <div v-for="(option, i) in selectedExercise.options" :key="i">
@@ -43,34 +43,35 @@ export default {
       selectedExercise: null,
       selectedAnswer: '',
       responseMessage: '',
-      progress: null,  // Adicionado para armazenar o progresso do usuario
+      progress: null,
     };
   },
   mounted() {
     this.fetchExercises();
-    this.fetchProgress();  // Chama a funcao do back para buscar o progresso do usuario
+    this.fetchProgress();
   },
   methods: {
     fetchExercises() {
       axios.get('http://127.0.0.1:8000/exercicios')
         .then(response => {
-          this.exercises = response.data.filter(exercise => exercise.curso_id === 1);
+          // Filtra os exercícios com curso_id = null
+          this.exercises = response.data.filter(exercise => exercise.curso_id === 2);
         })
         .catch(() => {
           this.responseMessage = "Erro ao buscar exercícios.";
         });
     },
     fetchProgress() {
-      let userId = localStorage.getItem('userId');  // Pega o ID do usuario do localStorage
+      let userId = localStorage.getItem('userId');
 
       if (!userId) {
         this.responseMessage = "Usuário não autenticado.";
         return;
       }
 
-      axios.get(`http://127.0.0.1:8000/progresso/${userId}/1`)
+      axios.get(`http://127.0.0.1:8000/progresso/${userId}/2`)
         .then(response => {
-          this.progress = response.data;  // Armazena o progresso retornado pela API
+          this.progress = response.data;
         })
         .catch(() => {
           this.responseMessage = "Erro ao buscar progresso.";
@@ -78,7 +79,7 @@ export default {
     },
     selectExercise(exercise) {
       this.selectedExercise = exercise;
-      this.selectedAnswer = ''; // Resetar resposta ao selecionar novo exercicio
+      this.selectedAnswer = '';
       this.responseMessage = ''; 
     },
     submitAnswer() {
@@ -87,14 +88,14 @@ export default {
         return;
       }
 
-      let userId = localStorage.getItem('userId'); // Recuperar o userId armazenado no localStorage
+      let userId = localStorage.getItem('userId');
 
       if (!userId) {
         this.responseMessage = "Usuário não autenticado.";
         return;
       }
 
-      userId = parseInt(userId); // 
+      userId = parseInt(userId);
 
       axios.post('http://127.0.0.1:8000/responder-exercicio', {
         answer: this.selectedAnswer,
@@ -103,7 +104,7 @@ export default {
       })
       .then(response => {
         this.responseMessage = response.data.message;
-        this.fetchProgress();  // Atualiza o progresso do usuarios dps de  enviar a resposta
+        this.fetchProgress();
       })
       .catch(() => {
         this.responseMessage = "Erro ao enviar a resposta.";
@@ -114,9 +115,10 @@ export default {
 </script>
 
 <style>
+/* Mantenha o mesmo estilo que você já tem */
 .container {
   display: flex;
-  height: 100vh; 
+  height: 100vh;
 }
 
 .sidebar {
@@ -124,15 +126,16 @@ export default {
   background-color: #f8f9fa;
   border-right: 1px solid #ccc;
   padding: 20px;
-  position: fixed; 
+  position: fixed;
   left: 0;
-  top: 0px; 
+  top: 0;
   bottom: 0;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
 .sidebar h3 {
   margin-top: 0;
+  color: rgb(0, 191, 255)
 }
 
 .sidebar ul {
@@ -153,13 +156,12 @@ export default {
 }
 
 .exercise-content {
-  margin-left: 270px; 
+  margin-left: 270px;
   padding: 20px;
-  flex-grow: 1; 
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  align-items: center; 
-  margin-top: 50px; 
+  align-items: center;
 }
 
 label {
@@ -198,12 +200,11 @@ progress {
   border-radius: 10px;
 }
 
-progress::-webkit-progress-value {  /* por algum motivo p firefox nn atualizava cm essa cor*/
-  background-color: rgb(0, 191, 255);  /* cor da parte preenchida */
+progress::-webkit-progress-value {
+  background-color: rgb(0, 191, 255);
 }
 
-progress::-moz-progress-bar { /* Para Firefox */
-  background-color: rgb(0, 191, 255);  /* chat deu essa sugestao p firefox e funcionou - Cor da parte preenchida */
+progress::-moz-progress-bar {
+  background-color: rgb(0, 191, 255);
 }
-
 </style>
