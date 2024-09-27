@@ -6,7 +6,7 @@
     <!-- Exibe o conteúdo do App.vue apenas se estiver na rota '/' -->
     <div v-if="$route.path === '/'">
       <h1>NeetFinance</h1>
-      <h1> A melhor maneira de aprender financas, <br> do zero.</h1>
+      <h1> A melhor maneira de aprender finanças, <br> do zero.</h1>
       <MyButton :label="'Get Pro'" @click="handleClick" />
     </div>
 

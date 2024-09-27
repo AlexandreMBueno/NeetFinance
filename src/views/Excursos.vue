@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <!-- Sidebar com os enunciados dos exercícios com curso_id = null -->
+    <!-- Sidebar com os enunciados dos exercícios com curso_id = 2 -->
     <div class="sidebar">
-      <h3>Curso - Introdução a financas pessoais</h3>
+      <h3>Curso - Introdução a Finanças Pessoais</h3>
 
       <!-- Barra de progresso -->
       <div v-if="progress">
@@ -11,8 +11,19 @@
       </div>
 
       <ul>
-        <li v-for="(exercise, index) in exercises" :key="index" @click="selectExercise(exercise)">
-          {{ exercise.question }}
+        <li 
+          v-for="exercise in exercises" 
+          :key="exercise.id" 
+          @click="selectExercise(exercise)"
+          class="exercise-item"
+        >
+          <span>{{ exercise.question }}</span>
+          <!-- Indicador de q foi feito verdinho -->
+          <span 
+            v-if="completedIds.includes(exercise.id)" 
+            class="completed-indicator"
+            :title="'Exercício completado'"
+          ></span>
         </li>
       </ul>
     </div>
@@ -44,6 +55,7 @@ export default {
       selectedAnswer: '',
       responseMessage: '',
       progress: null,
+      completedIds: [], // Armazenar os IDs dos exercicios completados
     };
   },
   mounted() {
@@ -54,7 +66,7 @@ export default {
     fetchExercises() {
       axios.get('http://127.0.0.1:8000/exercicios')
         .then(response => {
-          // Filtra os exercícios com curso_id = null
+          // Filtra os exercícios com curso_id = 2
           this.exercises = response.data.filter(exercise => exercise.curso_id === 2);
         })
         .catch(() => {
@@ -62,7 +74,7 @@ export default {
         });
     },
     fetchProgress() {
-      let userId = localStorage.getItem('userId');
+      const userId = localStorage.getItem('userId'); // Usar const em vez de let
 
       if (!userId) {
         this.responseMessage = "Usuário não autenticado.";
@@ -72,6 +84,7 @@ export default {
       axios.get(`http://127.0.0.1:8000/progresso/${userId}/2`)
         .then(response => {
           this.progress = response.data;
+          this.completedIds = response.data.completed_ids || []; // Armazena os IDs dos exercicios completados
         })
         .catch(() => {
           this.responseMessage = "Erro ao buscar progresso.";
@@ -88,23 +101,21 @@ export default {
         return;
       }
 
-      let userId = localStorage.getItem('userId');
+      const userId = localStorage.getItem('userId'); // Usar const em vez de let
 
       if (!userId) {
         this.responseMessage = "Usuário não autenticado.";
         return;
       }
 
-      userId = parseInt(userId);
-
       axios.post('http://127.0.0.1:8000/responder-exercicio', {
         answer: this.selectedAnswer,
         exercicio_id: this.selectedExercise.id,
-        user_id: userId
+        user_id: parseInt(userId) // Converte para int
       })
       .then(response => {
         this.responseMessage = response.data.message;
-        this.fetchProgress();
+        this.fetchProgress(); // Atualiza o progresso do usuario após enviar a resposta
       })
       .catch(() => {
         this.responseMessage = "Erro ao enviar a resposta.";
@@ -115,7 +126,6 @@ export default {
 </script>
 
 <style>
-/* Mantenha o mesmo estilo que você já tem */
 .container {
   display: flex;
   height: 100vh;
@@ -135,7 +145,7 @@ export default {
 
 .sidebar h3 {
   margin-top: 0;
-  color: rgb(0, 191, 255)
+  color: rgb(0, 191, 255);
 }
 
 .sidebar ul {
@@ -149,10 +159,23 @@ export default {
   padding: 10px;
   background-color: #e9ecef;
   border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s;
 }
 
 .sidebar li:hover {
   background-color: #ced4da;
+}
+
+.completed-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: lawngreen;
+  border-radius: 50%;
+  margin-left: 10px;
 }
 
 .exercise-content {

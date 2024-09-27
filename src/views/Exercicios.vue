@@ -4,20 +4,30 @@
     <div class="sidebar">
       <h3>Exercícios</h3>
 
-<!-- barra de progresso dos ex -->
+      <!-- Barra de progresso dos exercícios -->
       <div v-if="progress">
         <p>Progresso: {{ progress.completed }} / {{ progress.total }}</p>
         <progress :value="progress.completed" :max="progress.total"></progress>
       </div>
 
       <ul>
-        <li v-for="(exercise, index) in exercises" :key="index" @click="selectExercise(exercise)">
+        <li 
+          v-for="(exercise, index) in exercises" 
+          :key="index" 
+          @click="selectExercise(exercise)"
+        >
           {{ exercise.question }}
+          <!-- Indicador de q ja foi feito verdinho -->
+          <span 
+            v-if="completedIds.includes(exercise.id)" 
+            class="completed-indicator"
+            :title="'Exercício completado'"
+          ></span>
         </li>
       </ul>
     </div>
 
-    <!-- Exibe o exercicio selecionado no meio da pagina do lado -->
+    <!-- Exibe o exercici selecionado no meio da pagina do lado -->
     <div class="exercise-content" v-if="selectedExercise">
       <h2>{{ selectedExercise.question }}</h2>
       <div v-for="(option, i) in selectedExercise.options" :key="i">
@@ -43,7 +53,8 @@ export default {
       selectedExercise: null,
       selectedAnswer: '',
       responseMessage: '',
-      progress: null,  // Adicionado para armazenar o progresso do usuario
+      progress: null,
+      completedIds: [], // Adicionado para armazenar os IDs dos exercicios completados
     };
   },
   mounted() {
@@ -61,7 +72,7 @@ export default {
         });
     },
     fetchProgress() {
-      let userId = localStorage.getItem('userId');  // Pega o ID do usuario do localStorage
+      const userId = localStorage.getItem('userId');  // Pega o ID do usuaario do localStorage
 
       if (!userId) {
         this.responseMessage = "Usuário não autenticado.";
@@ -71,6 +82,7 @@ export default {
       axios.get(`http://127.0.0.1:8000/progresso/${userId}/1`)
         .then(response => {
           this.progress = response.data;  // Armazena o progresso retornado pela API
+          this.completedIds = response.data.completed_ids || []; // Armazena os IDs dos exercicios completados
         })
         .catch(() => {
           this.responseMessage = "Erro ao buscar progresso.";
@@ -78,7 +90,7 @@ export default {
     },
     selectExercise(exercise) {
       this.selectedExercise = exercise;
-      this.selectedAnswer = ''; // Resetar resposta ao selecionar novo exercicio
+      this.selectedAnswer = ''; // Reseta resposta ao selecionar novo exercicio
       this.responseMessage = ''; 
     },
     submitAnswer() {
@@ -94,7 +106,7 @@ export default {
         return;
       }
 
-      userId = parseInt(userId); // 
+      userId = parseInt(userId); 
 
       axios.post('http://127.0.0.1:8000/responder-exercicio', {
         answer: this.selectedAnswer,
@@ -103,7 +115,7 @@ export default {
       })
       .then(response => {
         this.responseMessage = response.data.message;
-        this.fetchProgress();  // Atualiza o progresso do usuarios dps de  enviar a resposta
+        this.fetchProgress();  // Atualiza o progresso do usuario apois enviar a resposta
       })
       .catch(() => {
         this.responseMessage = "Erro ao enviar a resposta.";
@@ -146,10 +158,22 @@ export default {
   padding: 10px;
   background-color: #e9ecef;
   border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .sidebar li:hover {
   background-color: #ced4da;
+}
+
+.completed-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: lawngreen;
+  border-radius: 50%;
+  margin-left: 10px;
 }
 
 .exercise-content {
@@ -198,12 +222,11 @@ progress {
   border-radius: 10px;
 }
 
-progress::-webkit-progress-value {  /* por algum motivo p firefox nn atualizava cm essa cor*/
+progress::-webkit-progress-value {  /* para navegadores baseados em WebKit */
   background-color: rgb(0, 191, 255);  /* cor da parte preenchida */
 }
 
 progress::-moz-progress-bar { /* Para Firefox */
-  background-color: rgb(0, 191, 255);  /* chat deu essa sugestao p firefox e funcionou - Cor da parte preenchida */
+  background-color: rgb(0, 191, 255);  /* cor da parte preenchida */
 }
-
 </style>
